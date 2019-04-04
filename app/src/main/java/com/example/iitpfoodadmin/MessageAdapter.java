@@ -41,9 +41,12 @@ public class MessageAdapter extends ArrayAdapter<foodList> {
         TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);
         TextView quantityTextView = (TextView) convertView.findViewById(R.id.quantityTextView);
         TextView totalPriceTextView = (TextView) convertView.findViewById(R.id.totalPriceTextView);
+        TextView statusTextView=(TextView) convertView.findViewById(R.id.statusTextView);
+        TextView keyTextView=(TextView) convertView.findViewById(R.id.key);
+        TextView indexTextView=(TextView) convertView.findViewById(R.id.index);
 
         TextView authorTextView = (TextView) convertView.findViewById(R.id.nameTextView);
-        Button b=(Button)convertView.findViewById(R.id.correct);
+        //Button b=(Button)convertView.findViewById(R.id.correct);
         foodList message = getItem(position);
 //         b.setTag(position);
 //         b.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +62,11 @@ public class MessageAdapter extends ArrayAdapter<foodList> {
         messageTextView.setText(message.getText());
         quantityTextView.setText(message.getQuantity());
         totalPriceTextView.setText(message.getTotalPrice());
+        statusTextView.setText(message.getStatus());
+        keyTextView.setText(message.getKey());
+        indexTextView.setText(""+position);
         authorTextView.setText(message.getName());
+
 
         return convertView;
     }

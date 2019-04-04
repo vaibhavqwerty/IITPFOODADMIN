@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,9 +24,11 @@ import java.util.List;
 
 
 public class Verify extends AppCompatActivity {
-
+    private String qwerty1;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessageDatabaseReference;
+    private FirebaseDatabase mFirebaseDatabase1;
+    private DatabaseReference mMessageDatabaseReference1;
     private ChildEventListener mChildEventListner;
     private ListView mMessageListView;
     public static MessageAdapter mMessageAdapter;
@@ -37,6 +42,7 @@ public class Verify extends AppCompatActivity {
 
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mMessageDatabaseReference =mFirebaseDatabase.getReference().child("Arya Services");
+
         mMessageListView=findViewById(R.id.adminlist);
         final List<foodList> friendlyMessages = new ArrayList<>();
         listOfList=new ArrayList<>();
@@ -44,6 +50,10 @@ public class Verify extends AppCompatActivity {
         //mMessageAdapter = new MessageAdapter(this, R.layout.final_list, friendlyMessages);
         nameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameList);
         mMessageListView.setAdapter(nameAdapter);
+
+
+
+
 
 mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     @Override
@@ -64,15 +74,23 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 finalFoodList f=dataSnapshot.getValue(finalFoodList.class);
+                qwerty1=dataSnapshot.getKey();
+              //  Toast.makeText(getApplicationContext(),dataSnapshot.getKey(),Toast.LENGTH_SHORT).show();
                foodList f1=dataSnapshot.getValue(foodList.class);
                 nameAdapter.add(f.getFoodListArrayList().get(0).getName());
                 listOfList.add(f);
+//                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+//                    String key=childSnapshot.getKey();
+//                    Log.i(TAG,key);
+//                }
 //                mMessageAdapter.add(f.getFoodListArrayList().get(0));
 //                friendlyMessages = f.getFoodListArrayList();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                finalFoodList f=dataSnapshot.getValue(finalFoodList.class);
+                Toast.makeText(getApplicationContext(),dataSnapshot.getKey()+"yo",Toast.LENGTH_SHORT).show();
 
             }
 
@@ -93,4 +111,48 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         };
         mMessageDatabaseReference.addChildEventListener(mChildEventListner);
     }
-}
+
+    public void myClickHandler(View v) {
+        LinearLayout vwParentRow = (LinearLayout)v.getParent();
+        LinearLayout qwerty=(LinearLayout)v.getParent().getParent();
+        //TextView child = (TextView)vwParentRow.getChildAt(0);
+       // child.setText("HI");
+        TextView key=(TextView)vwParentRow.getChildAt(2);
+          TextView key1=(TextView)vwParentRow.getChildAt(3);
+        LinearLayout ll=(LinearLayout)qwerty.getChildAt(0);
+        TextView name=(TextView)ll.getChildAt(4);
+       // Toast.makeText(this," "+name.getText(),Toast.LENGTH_SHORT).show();
+       mFirebaseDatabase1 = FirebaseDatabase.getInstance();
+       mMessageDatabaseReference1 = mFirebaseDatabase1.getReference().child(name.getText().toString());
+        mMessageDatabaseReference.child(key.getText().toString()).child("foodListArrayList").child(key1.getText().toString()).child("status").setValue("Status:Available");
+
+        //  vwParentRow.setBackgroundColor();
+       mMessageDatabaseReference1.child(key.getText().toString()).child("foodListArrayList").child(key1.getText().toString()).child("status").setValue("Status:Available");
+
+        vwParentRow.refreshDrawableState();
+
+
+    }
+    public void myClickHandler1(View v) {
+        LinearLayout vwParentRow = (LinearLayout)v.getParent();
+        LinearLayout qwerty=(LinearLayout)v.getParent().getParent();
+        //TextView child = (TextView)vwParentRow.getChildAt(0);
+        // child.setText("HI");
+        TextView key=(TextView)vwParentRow.getChildAt(2);
+        TextView key1=(TextView)vwParentRow.getChildAt(3);
+        LinearLayout ll=(LinearLayout)qwerty.getChildAt(0);
+        TextView name=(TextView)ll.getChildAt(4);
+        // Toast.makeText(this," "+name.getText(),Toast.LENGTH_SHORT).show();
+        mFirebaseDatabase1 = FirebaseDatabase.getInstance();
+        mMessageDatabaseReference1 = mFirebaseDatabase1.getReference().child(name.getText().toString());
+        mMessageDatabaseReference.child(key.getText().toString()).child("foodListArrayList").child(key1.getText().toString()).child("status").setValue("Status:Not Available");
+
+        //  vwParentRow.setBackgroundColor();
+        mMessageDatabaseReference1.child(key.getText().toString()).child("foodListArrayList").child(key1.getText().toString()).child("status").setValue("Status:Not Available");
+
+        vwParentRow.refreshDrawableState();
+
+
+    }
+    }
+

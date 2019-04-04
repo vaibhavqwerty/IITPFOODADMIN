@@ -5,21 +5,26 @@ public class foodList {
     private String name;
     private String quantity;
     private String totalPrice;
+    private String status;
+    private String key;
 
+    public foodList()
+    {
+        this.text="hello";
+        this.name="abcd";
+        this.quantity="0";
+        this.totalPrice="0";
+        this.status="Status:";
+        this.key="null";
+    }
 
-public foodList()
-{
-    this.text="hello";
-    this.name="abcd";
-    this.quantity="0";
-    this.totalPrice="0";
-}
-
-    public foodList(String text, String name,String quantity,String totalPrice) {
+    public foodList(String text, String name,String quantity,String totalPrice,String status, String key) {
         this.text = text;
         this.name = name;
         this.quantity=quantity;
         this.totalPrice=totalPrice;
+        this.status=status;
+        this.key = key;
 
     }
 
@@ -55,6 +60,16 @@ public foodList()
         this.totalPrice = totalPrice;
     }
 
+    public String getStatus(){return status;}
+
+    public void setStatus(String status){this.status=status;}
+
+    public String getKey(){return key;}
+
+    public void setKey(String key){this.key=key;}
+
 
 }
+
+
 
