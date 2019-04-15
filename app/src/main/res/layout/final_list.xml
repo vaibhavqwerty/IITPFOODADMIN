@@ -39,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="Status" />
+        tools:text="Status"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/nameTextView"

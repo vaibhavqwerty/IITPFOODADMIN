@@ -74,7 +74,7 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 finalFoodList f=dataSnapshot.getValue(finalFoodList.class);
-                qwerty1=dataSnapshot.getKey();
+                 qwerty1=dataSnapshot.getKey();
               //  Toast.makeText(getApplicationContext(),dataSnapshot.getKey(),Toast.LENGTH_SHORT).show();
                foodList f1=dataSnapshot.getValue(foodList.class);
                 nameAdapter.add(f.getFoodListArrayList().get(0).getName());
@@ -90,7 +90,7 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 finalFoodList f=dataSnapshot.getValue(finalFoodList.class);
-                Toast.makeText(getApplicationContext(),dataSnapshot.getKey()+"yo",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),dataSnapshot.getKey()+"yo",Toast.LENGTH_SHORT).show();
 
             }
 
@@ -121,7 +121,8 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           TextView key1=(TextView)vwParentRow.getChildAt(3);
         LinearLayout ll=(LinearLayout)qwerty.getChildAt(0);
         TextView name=(TextView)ll.getChildAt(4);
-       // Toast.makeText(this," "+name.getText(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Available",Toast.LENGTH_SHORT).show();
+
        mFirebaseDatabase1 = FirebaseDatabase.getInstance();
        mMessageDatabaseReference1 = mFirebaseDatabase1.getReference().child(name.getText().toString());
         mMessageDatabaseReference.child(key.getText().toString()).child("foodListArrayList").child(key1.getText().toString()).child("status").setValue("Status:Available");
@@ -142,7 +143,7 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         TextView key1=(TextView)vwParentRow.getChildAt(3);
         LinearLayout ll=(LinearLayout)qwerty.getChildAt(0);
         TextView name=(TextView)ll.getChildAt(4);
-        // Toast.makeText(this," "+name.getText(),Toast.LENGTH_SHORT).show();
+         Toast.makeText(this," Not Available",Toast.LENGTH_SHORT).show();
         mFirebaseDatabase1 = FirebaseDatabase.getInstance();
         mMessageDatabaseReference1 = mFirebaseDatabase1.getReference().child(name.getText().toString());
         mMessageDatabaseReference.child(key.getText().toString()).child("foodListArrayList").child(key1.getText().toString()).child("status").setValue("Status:Not Available");

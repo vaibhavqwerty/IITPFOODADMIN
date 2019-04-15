@@ -1,8 +1,10 @@
 package com.example.iitpfoodadmin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -83,6 +85,26 @@ public class MainActivity extends AppCompatActivity {
                startActivity(i);
            }
        });
+
+       Button counter=findViewById(R.id.orderList);
+       counter.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+      Intent i =new Intent(MainActivity.this,CounterList.class);
+      startActivity(i);
+           }
+       });
+
+        Button home=findViewById(R.id.HomeDelivery);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(MainActivity.this,homeList.class);
+                startActivity(i);
+
+
+            }
+        });
     }
 
     @Override
