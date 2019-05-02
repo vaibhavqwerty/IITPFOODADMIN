@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".homeOrderArray"></activity>
+        <activity android:name=".HistoryArray"></activity>
+        <activity android:name=".History" />
+        <activity android:name=".PaymentArray" />
+        <activity android:name=".PaymentList" />
+        <activity android:name=".homeOrderArray" />
         <activity android:name=".CounterOrderArray" />
         <activity android:name=".homeList" />
         <activity android:name=".CounterList" />

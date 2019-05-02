@@ -33,6 +33,8 @@ public class Verify extends AppCompatActivity {
     private ListView mMessageListView;
     public static MessageAdapter mMessageAdapter;
     private ArrayAdapter<String> nameAdapter;
+    private ArrayList<String>mKey;
+
     public static ArrayList<finalFoodList> listOfList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class Verify extends AppCompatActivity {
         mMessageListView=findViewById(R.id.adminlist);
         final List<foodList> friendlyMessages = new ArrayList<>();
         listOfList=new ArrayList<>();
+        mKey=new ArrayList<>();
         final List<String> nameList=new ArrayList<>();
         //mMessageAdapter = new MessageAdapter(this, R.layout.final_list, friendlyMessages);
         nameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameList);
@@ -63,6 +66,7 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //        intent.putExtra("EXTRA_FOOD_NAME", f.getFoodName());
 //        intent.putExtra("EXTRA_FOOD_PRICE", f.getFoodPrice());
 //        intent.putExtra("EXTRA_PRICE",f.getPrice());
+        mMessageDatabaseReference.child(mKey.get(position)).child("Verification").setValue("verified");
         mMessageAdapter = new MessageAdapter(Verify.this, R.layout.final_list, listOfList.get(position).getFoodListArrayList());
       startActivity(intent);
 
@@ -70,14 +74,20 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 });
 
 
+
         mChildEventListner= new ChildEventListener() {
+            int ii=0;
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                ii++;
                 finalFoodList f=dataSnapshot.getValue(finalFoodList.class);
                  qwerty1=dataSnapshot.getKey();
+                String vv=dataSnapshot.child("Verification").getValue().toString();
+                String use=dataSnapshot.child("UserName").getValue().toString();
               //  Toast.makeText(getApplicationContext(),dataSnapshot.getKey(),Toast.LENGTH_SHORT).show();
                foodList f1=dataSnapshot.getValue(foodList.class);
-                nameAdapter.add(f.getFoodListArrayList().get(0).getName());
+                nameAdapter.add(""+ii+".  "+use+"\n\nVerification Status:"+vv);
+                mKey.add(f.getFoodListArrayList().get(0).getKey());
                 listOfList.add(f);
 //                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
 //                    String key=childSnapshot.getKey();
@@ -124,7 +134,7 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         Toast.makeText(this,"Available",Toast.LENGTH_SHORT).show();
 
        mFirebaseDatabase1 = FirebaseDatabase.getInstance();
-       mMessageDatabaseReference1 = mFirebaseDatabase1.getReference().child(name.getText().toString());
+       mMessageDatabaseReference1 = mFirebaseDatabase1.getReference().child(name.getText().toString()).child("Verification");
         mMessageDatabaseReference.child(key.getText().toString()).child("foodListArrayList").child(key1.getText().toString()).child("status").setValue("Status:Available");
 
         //  vwParentRow.setBackgroundColor();
@@ -145,7 +155,7 @@ mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         TextView name=(TextView)ll.getChildAt(4);
          Toast.makeText(this," Not Available",Toast.LENGTH_SHORT).show();
         mFirebaseDatabase1 = FirebaseDatabase.getInstance();
-        mMessageDatabaseReference1 = mFirebaseDatabase1.getReference().child(name.getText().toString());
+        mMessageDatabaseReference1 = mFirebaseDatabase1.getReference().child(name.getText().toString()).child("Verification");
         mMessageDatabaseReference.child(key.getText().toString()).child("foodListArrayList").child(key1.getText().toString()).child("status").setValue("Status:Not Available");
 
         //  vwParentRow.setBackgroundColor();

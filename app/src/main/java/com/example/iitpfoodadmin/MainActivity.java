@@ -105,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        Button pay=findViewById(R.id.paymentList);
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+       Intent i=new Intent(MainActivity.this,PaymentList.class);
+       startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -120,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sign_out_menu:
                 AuthUI.getInstance().signOut(this);
                 return true;
+
+            case R.id.paymentHistory:
+                Intent i= new Intent(MainActivity.this,History.class);
+                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
         }}
